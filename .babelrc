@@ -1,0 +1,5 @@
+{
+    "presets": ["react-app"]
+}
+
+//babelrc 파일을 만들어 react-app이라는 플러그인을 명시
