@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom'; //리액트 라우터를 위한 링크 설정
+import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles'; //material-ui 직접 디자인 설정
 import AppBar from '@material-ui/core/AppBar'; //네비게이션 바 생성
 import Drawer from '@material-ui/core/Drawer'; //네비게이션을 보이게 해줌
@@ -28,17 +30,36 @@ class AppShell extends React.Component {
     render() {  //render 함수를 이용해 classes 안에 별도의 디자인을 넣을 수 있도록 설정
         const { classes } = this.props; 
         return ( //실제 네이게이션 바가 어떻게 보여지게 할지 설정
-            <div className={classes.root}> 
+            <div>
+                <div className={classes.root}> 
                 <AppBar position="static">
                     <IconButton className={classes.menuButton} color="inherit" onClick={this.handleDrawerToggle}>
-                        <MenuIcon/> 
+                        <MenuIcon/>
                     </IconButton>
                 </AppBar>
                 <Drawer open={this.state.toggle}>
-                    <MenuItem onClick={this.handleDrawerToggle}>Home</MenuItem>
+                    <MenuItem onClick={this.handleDrawerToggle}>
+                        <Link component={RouterLink} to="/">
+                            Home
+                        </Link>
+                    </MenuItem>
+                    <MenuItem onClick={this.handleDrawerToggle}>
+                        <Link component={RouterLink} to="/texts">
+                            Texts
+                        </Link>
+                    </MenuItem>
+                    <MenuItem onClick={this.handleDrawerToggle}>
+                        <Link component={RouterLink} to="/words">
+                            Words
+                        </Link>
+                    </MenuItem>
                 </Drawer>
+                </div>
+                <div id="content" style={{margin: 'auto', marginTop: '20px'}}>
+                    {React.cloneElement(this.props.children)}
+                </div>
             </div>
-        )
+        );
     }
 }
 
